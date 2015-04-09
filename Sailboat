@@ -1,0 +1,62 @@
+import java.util.Scanner;
+import java.text.DecimalFormat;
+import java.io.IOException;
+
+public class Sailboat extends Vehicle {
+
+	// field of sailboat
+	private int numSails;
+
+	// no argument constructor
+	public Sailboat() {
+	}
+
+	// constructor calls Vehicle and sets fields
+	public Sailboat(char b, String n, int p, int nd, double m, int ns) {
+		super(b, n, p, nd, m);
+		numSails = ns;
+	}
+
+	// accessor
+	public void setnumSails(int ns) {
+		numSails = ns;
+	}
+
+	// mutator
+	public int getnumSails() {
+		return numSails;
+	}
+
+	// sets vehicle as parent and read data from file
+	public void readData(Scanner scan) throws IOException {
+
+		readVehicle(scan);
+		int ns = 0;
+
+		if (scan.hasNext()) {
+
+			ns = scan.nextInt();
+			if (scan.hasNext())
+				scan.nextLine();
+			numSails = ns;
+
+		}
+	}
+
+	// sets and determines sailboat cost
+	public double calcHireCost() {
+
+		double c = (20 * getnumDays() * getnumSails() + 10 * getpassengers());
+		return c;
+	}
+
+	// user defined toSting
+	public String toString() {
+
+		DecimalFormat f = new DecimalFormat("0.00");
+
+		return (super.toString() + "\n Number of Sails" + numSails
+				+ "\n Rental Cost:" + "$" + f.format(calcHireCost()));
+
+	}
+}
