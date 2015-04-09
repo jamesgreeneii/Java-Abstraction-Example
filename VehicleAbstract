@@ -1,0 +1,77 @@
+import java.util.Scanner;
+import java.io.IOException;
+import java.io.*;
+
+public class VehicleAbstract {
+
+	public static void main(String[] args) throws IOException {
+		// open file
+		File file = new File("VehicleData.txt");
+		Scanner fileScan = new Scanner(file);
+		// Declare array for inherited classes
+		Car[] cars;
+		Sailboat[] sboats;
+
+		// Set size of array
+		final int Max = 2;
+
+		cars = new Car[Max];
+		sboats = new Sailboat[Max];
+		char b = '\u0000';
+		String n = null;
+		int p = 0;
+		int nd = 0;
+		double m = 0.00;
+		;
+		int ns = 0;
+		int w = 0;
+		int y = 0;
+		int z = 0;
+		// scan file
+		while (fileScan.hasNext()) {
+			b = fileScan.next().charAt(0);
+			fileScan.nextLine();
+
+			n = fileScan.nextLine();
+			p = fileScan.nextInt();
+			nd = fileScan.nextInt();
+			m = fileScan.nextDouble();
+			// Sets value for car array
+			if (b == 'C') {
+
+				ns = fileScan.nextInt();
+				cars[y] = new Car(b, n, p, nd, m, ns);
+
+				y++;
+			}
+			// sets value for sailboat array
+			else if (b == 'S') {
+
+				w = fileScan.nextInt();
+
+				sboats[z] = new Sailboat(b, n, p, nd, m, w);
+
+				z++;
+			}
+
+		}
+
+		// display cars
+		for (int x = 0; x < cars.length; x++) {
+			System.out.println(cars[x]);
+
+			System.out.println("==============");
+		}
+		
+		System.out.println("\n");
+		// display sailboats
+		for (int h = 0; h < sboats.length; h++) {
+			System.out.println(sboats[h]);
+
+			System.out.println("=============");
+
+		}
+
+		fileScan.close();
+	}
+}
