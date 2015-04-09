@@ -10,3 +10,115 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+import java.util.Scanner;
+import java.text.DecimalFormat;
+import java.io.IOException;
+
+public abstract class Vehicle {
+	
+// fields of vehicle
+private char flag;
+private String name;
+private int passengers, numDays;
+private double maxSpeed;
+
+// no argument constructor 
+public Vehicle () {
+}
+
+// constructor sets fields for vehicle
+public Vehicle (char b, String n, int p, int nd, double m) {
+	flag = b;
+	name = n;
+	passengers = p;
+	numDays = nd;
+	maxSpeed = m;
+}
+
+// accessor
+public void setname (String n) {
+	name = n;
+}
+
+public void setpassengers (int p) {
+	passengers = p;
+}
+
+public void setnumDays (int nd) {
+	numDays = nd;
+}
+
+public void setmaxSpeed (double m) {
+	maxSpeed = m;
+}
+// mutator
+public String getname () {
+	return name;
+}
+
+public int getpassengers () {
+	return passengers;
+}
+
+public int getnumDays () {
+	return numDays;
+}
+
+public double getmaxSpeed () {
+	return maxSpeed;
+}
+
+// reads data file into vehicle 
+public void readVehicle(Scanner scan) throws IOException {
+	char b = 'F';
+	String n = "";
+	int p = 0;
+	int nd = 0;
+	double m = 0.00;
+	
+	if (scan.hasNext()) {
+		b = scan.next().charAt(0);
+		scan.nextLine();
+		
+		n = scan.nextLine();
+		p = scan.nextInt();
+		nd = scan.nextInt();
+		m = scan.nextDouble();
+		
+		if (scan.hasNext())
+			scan.nextLine();
+		
+		flag = b;
+		name = n;
+		passengers = p;
+		numDays = nd;
+		maxSpeed = m;
+	}
+}
+        // user defined toString
+		public String toString() {
+			
+			DecimalFormat f = new DecimalFormat("0.00");
+			
+			String vehicleType = "";
+			
+			if (flag == 'C')
+				vehicleType = "Car";
+			else
+				vehicleType = "Sailboat";
+			
+			return ("Vehicle" + vehicleType + 
+					"\n Make:" + name + 
+					"\n Passengers:" + passengers + 
+					"\n nuber of days:" +
+					numDays + 
+					"\n Maximum speed:" + 
+					f.format(maxSpeed));  
+		}
+		
+		// sets cost for rental 
+		public abstract double calcHireCost();
+		// sets read file to make vehicle parent 
+		public abstract void readData (Scanner scan) throws IOException;
+}
+
