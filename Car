@@ -1,0 +1,62 @@
+import java.util.Scanner;
+import java.text.DecimalFormat;
+import java.io.IOException;
+
+public class Car extends Vehicle {
+	// fields for Vehicle
+	private int numWheels;
+
+	// no argument constructor
+	public Car() {
+	}
+
+	// constructor to call vehicle constructor to set fields
+	public Car(char b, String n, int p, int nd, double m, int nw) {
+		super(b, n, p, nd, m);
+
+		numWheels = nw;
+	}
+
+	// accessor methods
+	public void setnumWheels(int nw) {
+		numWheels = nw;
+	}
+
+	// mutator method
+	public int getnumWheels() {
+		return numWheels;
+	}
+
+	// Implements vehicle as parent and reads data from file
+	public void readData(Scanner scan) throws IOException {
+		readVehicle(scan);
+
+		int nw = 0;
+		if (scan.hasNext()) {
+
+			nw = scan.nextInt();
+
+			if (scan.hasNext())
+				scan.nextLine();
+			numWheels = nw;
+		}
+	}
+
+	// sets cost of rental
+	public double calcHireCost() {
+
+		double c = (15 * getnumDays() * getnumWheels() + 10 * getpassengers());
+		return c;
+
+	}
+
+	// user defined toString
+	public String toString() {
+
+		DecimalFormat f = new DecimalFormat("0.00");
+
+		return (super.toString() + "\n Number Wheels:" + numWheels
+				+ "\n Rental Cost:" + "$" + f.format(calcHireCost()));
+	}
+
+}
